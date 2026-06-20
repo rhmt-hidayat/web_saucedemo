@@ -84,4 +84,37 @@ public class LoginBdd extends env_target {
         }
         driver.quit();
     }
+
+//  Implementasi Test Data Driven
+    @When("^User input (.*) and (.*)$")
+    public void user_fill_username_and_paswword(String username, String password) {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.name("user-name")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
+    }
+
+    @Then("^User get verify login (.*)$")
+    public void user_verify_login_result_tdd(String result) {
+        // Write code here that turns the phrase above into concrete actions
+        Duration duration = Duration.ofSeconds(10);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        if (result == "Passed") {
+            wait.until(ExpectedConditions.or(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='header_container']/div[2]/span"))
+            ));
+        } else if (result == "Failed") {
+            wait.until(ExpectedConditions.or(
+                    ExpectedConditions.visibilityOfElementLocated(By.className("error-button"))
+            ));
+            
+        }
+
+        try {
+            // set time
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.quit();
+    }
 }
