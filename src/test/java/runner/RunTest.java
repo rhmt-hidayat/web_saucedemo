@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "stepDef",
 //      tags = "@Test1 or @Test2",
-        tags = "@TDD",
+//      tags = "@TDD",
+        tags = "@Register",
         plugin = {
                 "pretty",
                 "html:target/cucumber-report.html"
