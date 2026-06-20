@@ -29,11 +29,18 @@ public class LoginBdd extends env_target {
         );
     }
 
-    @When("User fill username and password")
-    public void userFillUsernameAndPassword() {
+    @When("User fill username and password valid")
+    public void userFillUsernameAndPasswordValid() {
         // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.name("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
+    }
+
+    @When("User fill username and password invalid")
+    public void userFillUsernameAndPasswordInvalid() {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.name("user-name")).sendKeys("standard_test");
+        driver.findElement(By.id("password")).sendKeys("secret_sau");
     }
 
     @And("User click login button")
@@ -49,6 +56,24 @@ public class LoginBdd extends env_target {
         WebDriverWait wait = new WebDriverWait(driver, duration);
         wait.until(
                 ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='header_container']/div[2]/span"))
+        );
+
+        try {
+            // set time
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.quit();
+    }
+
+    @Then("User get error message")
+    public void UserGetErrorMessage() {
+        // Write code here that turns the phrase above into concrete actions
+        Duration duration = Duration.ofSeconds(10);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='login_button_container']/div/form/div[3]/h3"))
         );
 
         try {
