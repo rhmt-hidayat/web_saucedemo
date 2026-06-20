@@ -1,5 +1,7 @@
 package stepDef;
 
+import pages.homePage;
+import pages.registerPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,7 +17,6 @@ import java.util.Random;
 public class RegisterBdd extends env_target {
     @Given("User is on para bank homepage")
     public void userIsOnParaBankHomepage() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver");
         System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -43,8 +44,8 @@ public class RegisterBdd extends env_target {
 
     @When("User input name")
     public void userInputName() {
-        driver.findElement(By.id("customer.firstName")).sendKeys("User");
-        driver.findElement(By.name("customer.lastName")).sendKeys("Argo");
+        registerPage fillInputName = new registerPage(driver);
+        fillInputName.inputNameData("User", "Argo");
     }
 
     @And("User input address detail")
@@ -73,7 +74,8 @@ public class RegisterBdd extends env_target {
 
     @When("User click register button")
     public void userClickRegisterButton() {
-        driver.findElement(By.xpath("//*[@class='button'][@value='Register']")).click();
+        homePage btnRegister = new homePage(driver);
+        btnRegister.clickRegister();
     }
 
     @Then("User register successfully")

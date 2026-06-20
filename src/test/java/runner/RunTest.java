@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         glue = "stepDef",
 //      tags = "@Test1 or @Test2",
 //      tags = "@TDD",
-        tags = "@Register",
+        tags = "@Negative and @Register",
         plugin = {
                 "pretty",
                 "html:target/cucumber-report.html"
